@@ -212,7 +212,7 @@ void niv_bat()
     tension_batt = (3.3 * val_bat / (4095 / 2));
     level_batt = constrain(map(tension_batt * 100, 270, 400, 0, 100), 0, 100); // on map et contraint la valeur pour l'envoi
     MyBLE.setBatteryLevel(level_batt);
-
+    time_send_bat = millis();
     Serial.print(F("tension batt : "));
     Serial.print(tension_batt);
     Serial.print(F(" V - % : "));
@@ -225,7 +225,6 @@ void send_niv_bat()
 {
     if (millis() - time_send_bat >= 600 * 1000) // si plus grand que 10 minutes
     {
-        time_send_bat = millis();
         if (MyBLE.isConnected())
         {
 
